@@ -1,0 +1,42 @@
+'''
+To practice some basic principles such as dictionaries, a freeform project was assigned to create a rock, paper scissors game. 
+The brief is as follows:
+
+"The program should do the following:
+
+Prompt the user to select either Rock, Paper, or Scissors.
+Instruct the computer to randomly select either Rock, Paper, or Scissors.
+Compare the user's choice and the computer's choice.
+Determine a winner (the user or the computer).
+Inform the user who the winner is."
+
+The code is presented below.
+'''
+
+print "Let's play rock, paper, scissors!"
+
+"""The user will be prompted to select rock, paper or scissors, the program will then randomly make a choice and determine who is the winner"""
+
+from random import randint
+
+rps = ["ROCK", "PAPER", "SCISSORS"]
+rps2 = ["PAPER", "SCISSORS", "ROCK"]
+message = {"tie": "Tie game!",
+          "won": "You won!",
+           "lost": "You lost!"}
+
+def decide_winner(user, comp):
+  print "%s takes on %s!" % (user, comp)
+  if user == comp:
+    print message["tie"]
+  elif rps.index(user) == rps2.index(comp):
+    print message["lost"]
+  else:
+    print message["won"]
+
+def play_RPS():
+  user = raw_input("Enter rock, paper or scissors: ").upper()
+  comp = rps[randint(0, 2)]
+  decide_winner(user, comp)
+
+play_RPS()
