@@ -1,0 +1,103 @@
+'''
+A Command Line Calendar was assigned as a freeform project during my online Python course. Whilst a relatively basic calendar, this project allowed for the practice of various coding skills as well as requiring some thought to complete. The brief for the project is as follows:
+
+"The user should be able to choose to:
+
+View the calendar
+Add an event to the calendar
+Update an existing event
+Delete an existing event
+
+The program should behave in the following way:
+
+Print a welcome message to the user
+Prompt the user to view, add, update, or delete an event on the calendar
+Depending on the user's input: view, add, update, or delete an event on the calendar
+The program should never terminate unless the user decides to exit"
+
+The code is presented below.
+'''
+
+"""This program will create a basic calendar which the user can either view, add events to, update existing events or delete events."""
+
+from time import sleep, strftime
+name = "Fahad"
+calendar = {}
+
+def welcome():
+  print ""
+  print "Hello " + name + ", you have selected the calendar."
+  print "Opening calendar..."
+  sleep(3)
+  print ""
+  print "Current date:", strftime("%A %d %B %Y")
+  print "Current time:", strftime("%H:%M:%S")
+  sleep(2)
+  print ""
+  print "What would you like to do?"
+
+def start_calendar():
+  welcome();
+  start = True
+  while start:
+    print ""
+    user_choice = raw_input("Enter V to View the calendar, A to Add Events, U to Update Events or D to Delete Events. Enter X to exit. ")
+    user_choice = user_choice.upper()
+    print ""
+    
+    if user_choice == "V":
+      if len(calendar.keys()) < 1:
+        print "Calendar is currently empty."
+      else:
+        print calendar
+        
+    elif user_choice == "U":
+      date = raw_input("Enter date (DD/MM/YYYY): ")
+      update = raw_input("Enter the update: ")
+      calendar[date] = update
+      sleep(1)
+      print "Update Successful."
+      print calendar
+      
+    elif user_choice == "A":
+      event = raw_input("Enter event: ")
+      date = raw_input("Enter date (DD/MM/YYYY): ")
+      if len(date) != 10 or int(date[6:10]) < int(strftime("%Y")):
+        print "Invalid date"
+        try_again = raw_input("Try again? Y to try again, N to exit the program: ")
+        try_again = try_again.upper()
+        if try_again == "Y":
+          continue
+        else:
+          start = False
+      else:
+        calendar[date] = event
+        sleep(1)
+        print "Event created."
+        print calendar
+    
+    elif user_choice == "D":
+      if len(calendar.keys()) < 1:
+        print "Calendar is currently empty."
+      else:
+        event = raw_input("Which event? ")
+        for date in calendar:
+          if event == calendar[date]:
+            del calendar[date]
+            sleep(1)
+            print "Event deleted."
+            print calendar
+            break
+        else:
+          print "Event not found. Please check the calendar below and try again."
+          print calendar
+    
+    elif user_choice == "X":
+      start = False
+      
+    else:
+      print "Invalid command. Please try again, or exit the program"
+ 
+  print "Calendar closed"
+      
+start_calendar()
